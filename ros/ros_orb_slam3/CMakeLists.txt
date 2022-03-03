@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5)
 project(ros_orb_slam3)
 
 if (NOT CMAKE_BUILD_TYPE)
@@ -34,6 +34,15 @@ include_directories("../../orb_slam3/include")
 target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../orb_slam3/lib/liborb_slam3.so")
 
 # catkin
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+include_directories(include ${Boost_INCLUDE_DIRS})
+ament_target_dependencies(${PROJECT_NAME} rclcpp tf image_transport sensor_msgs)
+
+
+
+
 find_package(catkin REQUIRED COMPONENTS roscpp tf image_transport sensor_msgs)
 include_directories(${catkin_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
